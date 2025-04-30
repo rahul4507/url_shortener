@@ -6,12 +6,12 @@ from .models import URL
 import string
 import random
 
-def short_random_string(N:int) -> str:
-
+# this won't work need to go ahead with a hash function.
+def short_random_string(N: int) -> str:
     return ''.join(random.SystemRandom().choice(
         string.ascii_letters + \
         string.digits) for _ in range(N)
-    )
+                   )
 
 class UrlShortenerView(APIView):
     def get(self, request, short_code):
@@ -21,7 +21,10 @@ class UrlShortenerView(APIView):
             if not short_url:
                 return Response({"message": "URL not found"}, status=404)
             # send the actual url in the response
-            return Response({f"redirect_url: {short_url.original_url}"}, status=200)
+            return Response({
+                    "redirect_url":short_url.original_url
+                }
+            ,status=200)
         except Exception as e:
             logger.info(f"Error occurred: {str(e)}")
             raise Exception(f"An error occurred: {str(e)}")
@@ -41,7 +44,7 @@ class UrlShortenerView(APIView):
             # need to parse the input url and get the domain name
             domain = request.build_absolute_uri('/').split('/')[2]
             logger.info(f"Shortened URL: {domain}/{short_url.short_code}")
-            return Response({"result":{
+            return Response({"result": {
                 "short_url": f"{request.META.get('HTTP_HOST')}/{short_url.short_code}",
                 "original_url": short_url.original_url,
                 "short_code": short_url.short_code

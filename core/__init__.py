@@ -14,6 +14,6 @@ class ServiceNameFormatter(logging.Formatter):
 
 logger = logging.getLogger(settings.LOGGER)
 handler = logging.StreamHandler()
-handler.setFormatter(ServiceNameFormatter("WX"))
+handler.setFormatter(ServiceNameFormatter("CORE"))
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)

@@ -8,3 +8,10 @@ class URL(models.Model):
 
     def __str__(self):
         return f"{self.original_url} -> {self.short_code}"
+
+    class Meta:
+        app_label = 'core'
+        db_table = 'url'
+        indexes = [
+            models.Index(fields=['short_code'], name='short_code_index'),
+        ]

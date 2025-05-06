@@ -6,12 +6,30 @@ from .models import URL
 import string
 import random
 
+"""
+An error occurred creating the short URL
+The URL has not been shortened, possible errors:
+
+Check if the domain is correct
+Check if the site is online
+Check the address bars and punctuation
+The URL may be being used for spam
+The URL may have been blocked
+The URL may have been reported
+The URL was recently shortened
+The URL is not allowed
+You shortened many URLs in a short time
+
+# TODO: Add a check to ensure Local Host URLs are not shortened
+"""
+
+
 # this won't work need to go ahead with a hash function.
-def short_random_string(N: int) -> str:
-    return ''.join(random.SystemRandom().choice(
-        string.ascii_letters + \
-        string.digits) for _ in range(N)
-                   )
+def short_random_string(n: int) -> str:
+    return ''.join(
+        random.SystemRandom(
+        ).choice(string.ascii_letters + string.digits) for _ in range(n)
+    )
 
 class UrlShortenerView(APIView):
     def get(self, request, short_code):

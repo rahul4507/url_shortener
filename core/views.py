@@ -20,7 +20,7 @@ The URL was recently shortened
 The URL is not allowed
 You shortened many URLs in a short time
 
-Local Host Urls should not be shortened  --> we must add a check for this
+# TODO: Add a check to ensure Local Host URLs are not shortened
 """
 
 
